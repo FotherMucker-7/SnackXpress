@@ -230,6 +230,18 @@
             color: var(--neon-lime);
         }
 
+        .title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #666;
+            text-align: center;
+            margin: 0 auto
+        }
+
         /* --- FOOTER --- */
         footer {
             padding: 50px 0;
@@ -281,8 +293,7 @@
             <p>Micro-clases de cocina para sobrevivir al mundo moderno sin morir de hambre (ni de aburrimiento). Recetas
                 listas en menos de 15 minutos.</p>
             <br>
-            <a href="https://forms.google.com/TU_LINK_AQUI" class="btn" onclick="trackClick()">Empezar ahora —
-                $9/mes</a>
+            <a href="#registro" class="btn">Empezar ahora — $9/mes</a>
             <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.7;">*Precio de lanzamiento. Cancela cuando
                 quieras.</p>
         </div>
@@ -319,11 +330,72 @@
                         <li>Ingredientes que ya tienes</li>
                         <li>Resultados reales</li>
                     </ul>
-                    <a href="https://forms.google.com/TU_LINK_AQUI"
+                    <a href="#registro"
                         style="color: var(--neon-lime); font-weight: bold; text-decoration: underline; margin-top: 20px; display: block;">Lo
                         quiero probar &rarr;</a>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- REEMPLAZA TU SECCIÓN DE "REGISTRO" CON ESTO -->
+    <section id="registro" style="padding: 100px 0; background-color: #0a0a0a; border-top: 1px solid #333;">
+        <div class="container">
+            <div class="title" style="text-align: center; margin-bottom: 50px;">
+                <h2 style="font-size: 2.5rem; color: #fff;">Únete a la Revolución</h2>
+                <p class="subtitle">Sin spam. Sin tonterías. Solo comida real.</p>
+            </div>
+
+            <!-- FORMULARIO NATIVO -->
+            <!-- IMPORTANTE: CAMBIA LA URL DEL ACTION POR LA TUYA DE FORMSPREE -->
+            <form action="https://formspree.io/f/mvzzooqy" method="POST" style="max-width: 600px; margin: 0 auto;">
+
+                <!-- Pregunta 1: Segmentación -->
+                <div style="margin-bottom: 30px;">
+                    <label
+                        style="display: block; color: var(--neon-lime); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem;">
+                        1. ¿Cocinas snacks o comidas simples en casa al menos 3 veces por semana?
+                    </label>
+                    <div style="display: flex; gap: 20px;">
+                        <label style="color: #fff; cursor: pointer;">
+                            <input type="radio" name="cocina_frecuente" value="SI" required> Sí, claro
+                        </label>
+                        <label style="color: #fff; cursor: pointer;">
+                            <input type="radio" name="cocina_frecuente" value="NO"> No, casi nunca
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2: Validación Precio -->
+                <div style="margin-bottom: 30px;">
+                    <label
+                        style="display: block; color: var(--neon-lime); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem;">
+                        2. Si este servicio costara USD 9 al mes (menos que un delivery), ¿te suscribirías hoy?
+                    </label>
+                    <div style="display: flex; gap: 20px;">
+                        <label style="color: #fff; cursor: pointer;">
+                            <input type="radio" name="pagaria_9usd" value="SI" required> Sí, lo pagaría
+                        </label>
+                        <label style="color: #fff; cursor: pointer;">
+                            <input type="radio" name="pagaria_9usd" value="NO"> No, gracias
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3: Feedback -->
+                <div style="margin-bottom: 40px;">
+                    <label
+                        style="display: block; color: var(--neon-lime); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem;">
+                        3. ¿Qué te motivaría (o te frenaría) a contratarlo? Sé honesto/a.
+                    </label>
+                    <textarea name="feedback" rows="4" required
+                        placeholder="Ej: Me frena que no tengo tiempo ni para ver videos..."
+                        style="width: 100%; background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 15px; font-size: 1rem; border-radius: 4px; resize: vertical;"></textarea>
+                </div>
+
+                <!-- Botón de Envío -->
+                <button type="submit" class="btn" style="width: 100%; border: none;">ENVIAR RESPUESTA &rarr;</button>
+            </form>
         </div>
     </section>
 
