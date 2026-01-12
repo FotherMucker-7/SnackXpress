@@ -293,7 +293,7 @@
             <p>Micro-clases de cocina para sobrevivir al mundo moderno sin morir de hambre (ni de aburrimiento). Recetas
                 listas en menos de 15 minutos.</p>
             <br>
-            <a href="#registro" class="btn">Empezar ahora — $9/mes</a>
+            <a href="#registro" class="btn" onclick="trackClick()">Empezar ahora — $9/mes</a>
             <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.7;">*Precio de lanzamiento. Cancela cuando
                 quieras.</p>
         </div>
@@ -330,7 +330,7 @@
                         <li>Ingredientes que ya tienes</li>
                         <li>Resultados reales</li>
                     </ul>
-                    <a href="#registro"
+                    <a href="#registro" onclick="trackClick()"
                         style="color: var(--neon-lime); font-weight: bold; text-decoration: underline; margin-top: 20px; display: block;">Lo
                         quiero probar &rarr;</a>
                 </div>
@@ -338,99 +338,191 @@
         </div>
     </section>
 
-    <!-- REEMPLAZA TU SECCIÓN DE "REGISTRO" CON ESTO -->
-    <section id="registro" style="padding: 100px 0; background-color: #0a0a0a; border-top: 1px solid #333;">
+    <section id="registro"
+        style="padding: 100px 0; background-color: #0a0a0a; border-top: 1px solid #333; position: relative;">
         <div class="container">
-            <div class="title" style="text-align: center; margin-bottom: 50px;">
-                <h2 style="font-size: 2.5rem; color: #fff;">Únete a la Revolución</h2>
-                <p class="subtitle">Sin spam. Sin tonterías. Solo comida real.</p>
+
+            <!-- ESTADO 1: EL FORMULARIO (Visible por defecto) -->
+            <div id="form-wrapper">
+                <div class="title">
+                    <h2>Únete a la Revolución</h2>
+                    <p class="subtitle">Sin spam. Sin limitaciones. Solo comida real y saludable.</p>
+                </div>
+
+                <form id="my-form" action="https://formspree.io/f/mvzzooqy" method="POST"
+                    style="max-width: 600px; margin: 0 auto;">
+
+                    <!-- Pregunta 1 -->
+                    <div style="margin-bottom: 30px;">
+                        <label
+                            style="display: block; color: var(--neon-lime); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem;">
+                            1. ¿Cocinas snacks o comidas simples en casa al menos 3 veces por semana?
+                        </label>
+                        <div style="display: flex; gap: 20px;">
+                            <label style="color: #fff; cursor: pointer;">
+                                <input type="radio" name="cocina_frecuente" value="SI" required> Sí, claro
+                            </label>
+                            <label style="color: #fff; cursor: pointer;">
+                                <input type="radio" name="cocina_frecuente" value="NO"> No, casi nunca
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div style="margin-bottom: 30px;">
+                        <label
+                            style="display: block; color: var(--neon-lime); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem;">
+                            2. Si este servicio costara USD 9 al mes (menos que un delivery), ¿te suscribirías hoy?
+                        </label>
+                        <div style="display: flex; gap: 20px;">
+                            <label style="color: #fff; cursor: pointer;">
+                                <input type="radio" name="pagaria_9usd" value="SI" required> Sí, lo pagaría
+                            </label>
+                            <label style="color: #fff; cursor: pointer;">
+                                <input type="radio" name="pagaria_9usd" value="NO"> No, gracias
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 3 -->
+                    <div style="margin-bottom: 40px;">
+                        <label
+                            style="display: block; color: var(--neon-lime); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem;">
+                            3. ¿Qué te motivaría (o te frenaría) a contratarlo? Sé honesto/a.
+                        </label>
+                        <textarea name="feedback" rows="4" required
+                            placeholder="Ej: Me frena que no tengo tiempo ni para ver videos..."
+                            style="width: 100%; background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 15px; font-size: 1rem; border-radius: 4px; resize: vertical;"></textarea>
+                    </div>
+
+                    <button id="my-form-button" type="submit" class="btn" style="width: 100%; border: none;">ENVIAR
+                        RESPUESTA &rarr;</button>
+                    <p id="my-form-status"
+                        style="margin-top: 10px; color: #ff0055; text-align: center; font-size: 0.9rem;"></p>
+                </form>
             </div>
 
-            <!-- FORMULARIO NATIVO -->
-            <!-- IMPORTANTE: CAMBIA LA URL DEL ACTION POR LA TUYA DE FORMSPREE -->
-            <form action="https://formspree.io/f/mvzzooqy" method="POST" style="max-width: 600px; margin: 0 auto;">
+            <!-- ESTADO 2: MENSAJE DE ÉXITO (Oculto por defecto) -->
+            <div id="success-message"
+                style="display: none; text-align: center; padding: 50px 0; animation: fadeIn 0.5s ease;">
+                <div style="font-size: 4rem; margin-bottom: 20px;">🚀</div>
+                <h2 style="font-size: 3rem; color: var(--neon-lime); line-height: 1;">¡RECIBIDO!</h2>
+                <p style="font-size: 1.5rem; color: #fff; margin-top: 20px;">Gracias por tu honestidad.</p>
+                <p style="color: #666; margin-top: 10px;">Si lanzamos SnackXpress, serás el primero en enterarte.</p>
+                <button onclick="location.reload()" class="btn btn-outline"
+                    style="margin-top: 40px; font-size: 0.9rem;">Volver al inicio</button>
+            </div>
 
-                <!-- Pregunta 1: Segmentación -->
-                <div style="margin-bottom: 30px;">
-                    <label
-                        style="display: block; color: var(--neon-lime); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem;">
-                        1. ¿Cocinas snacks o comidas simples en casa al menos 3 veces por semana?
-                    </label>
-                    <div style="display: flex; gap: 20px;">
-                        <label style="color: #fff; cursor: pointer;">
-                            <input type="radio" name="cocina_frecuente" value="SI" required> Sí, claro
-                        </label>
-                        <label style="color: #fff; cursor: pointer;">
-                            <input type="radio" name="cocina_frecuente" value="NO"> No, casi nunca
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Pregunta 2: Validación Precio -->
-                <div style="margin-bottom: 30px;">
-                    <label
-                        style="display: block; color: var(--neon-lime); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem;">
-                        2. Si este servicio costara USD 9 al mes (menos que un delivery), ¿te suscribirías hoy?
-                    </label>
-                    <div style="display: flex; gap: 20px;">
-                        <label style="color: #fff; cursor: pointer;">
-                            <input type="radio" name="pagaria_9usd" value="SI" required> Sí, lo pagaría
-                        </label>
-                        <label style="color: #fff; cursor: pointer;">
-                            <input type="radio" name="pagaria_9usd" value="NO"> No, gracias
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Pregunta 3: Feedback -->
-                <div style="margin-bottom: 40px;">
-                    <label
-                        style="display: block; color: var(--neon-lime); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem;">
-                        3. ¿Qué te motivaría (o te frenaría) a contratarlo? Sé honesto/a.
-                    </label>
-                    <textarea name="feedback" rows="4" required
-                        placeholder="Ej: Me frena que no tengo tiempo ni para ver videos..."
-                        style="width: 100%; background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 15px; font-size: 1rem; border-radius: 4px; resize: vertical;"></textarea>
-                </div>
-
-                <!-- Botón de Envío -->
-                <button type="submit" class="btn" style="width: 100%; border: none;">ENVIAR RESPUESTA &rarr;</button>
-            </form>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 SnackXpress - Proyecto FoodLab Latam.</p>
+            <p>&copy; 2026 SnackXpress - Proyecto FoodLab Latam.</p>
             <p style="font-size: 0.7rem; margin-top: 10px;">Validación de Producto Mínimo Viable. No se cobrará nada
                 real... todavía.</p>
         </div>
     </footer>
 
+    <!-- SCRIPT MAESTRO: VISUALES + FORMULARIO -->
     <script>
-        // Simple script to track clicks (simulated)
+        /* =========================================
+           1. EFECTOS VISUALES Y UI
+           ========================================= */
+
+        // Función para trackear el clic del botón principal (opcional)
         function trackClick() {
-            console.log("Usuario interesado en pagar $9. ¡Conversión Potencial!");
-            // Aquí podrías agregar Google Analytics o Pixel de Facebook
-            // window.location.href = "TU_URL_DEL_FORMULARIO";
+            console.log("Usuario interesado. Scrolleando hacia el registro...");
+            // Aquí podrías disparar un evento a Google Analytics si lo tuvieras configurado
         }
 
-        // Efecto suave de aparición al scrollear
+        // Configuración del Intersection Observer (Animación al hacer scroll)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    // Cuando el elemento entra en pantalla:
                     entry.target.style.opacity = 1;
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
         });
 
+        // Aplicar la animación a las tarjetas (.card)
+        // Inicialmente las ocultamos y las movemos un poco hacia abajo
         document.querySelectorAll('.card').forEach((el) => {
             el.style.opacity = 0;
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'all 0.6s ease-out';
             observer.observe(el);
         });
+
+        /* =========================================
+           2. LÓGICA DEL FORMULARIO (FORMSPREE AJAX)
+           ========================================= */
+
+        // Capturamos los elementos del DOM
+        var form = document.getElementById("my-form");
+        var formWrapper = document.getElementById("form-wrapper");
+        var successMessage = document.getElementById("success-message");
+        var status = document.getElementById("my-form-status");
+
+        // Verificamos que el formulario exista para evitar errores en la consola
+        if (form) {
+            async function handleSubmit(event) {
+                event.preventDefault(); // IMPORTANTE: Evita que la página se recargue o redirija
+
+                var data = new FormData(event.target);
+                var btn = document.getElementById("my-form-button");
+                var originalText = btn.innerHTML;
+
+                // UI de "Cargando..."
+                btn.innerHTML = "ENVIANDO...";
+                btn.disabled = true;
+                btn.style.cursor = "wait";
+
+                // Petición a Formspree
+                fetch(event.target.action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json' // Pedimos respuesta JSON limpia
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        // CASO ÉXITO: Ocultar form, mostrar mensaje de victoria
+                        formWrapper.style.display = "none";
+                        successMessage.style.display = "block";
+                        form.reset(); // Limpiar inputs
+
+                        // Pequeño scroll suave hacia el mensaje de éxito para asegurar visibilidad
+                        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    } else {
+                        // CASO ERROR (Validación de Formspree)
+                        response.json().then(data => {
+                            if (Object.hasOwn(data, 'errors')) {
+                                status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                            } else {
+                                status.innerHTML = "Ups! Algo falló al enviar el formulario.";
+                            }
+                        });
+                        // Restaurar botón
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        btn.style.cursor = "pointer";
+                    }
+                }).catch(error => {
+                    // CASO ERROR DE RED (Internet caído, etc)
+                    status.innerHTML = "Error de conexión. Verifica tu internet e intenta de nuevo.";
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.style.cursor = "pointer";
+                });
+            }
+
+            // Asignar el evento al formulario
+            form.addEventListener("submit", handleSubmit);
+        }
     </script>
 </body>
 
