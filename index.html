@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnackXpress | Comida Real en Minutos</title>
+    <style>
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+            overflow-x: hidden;
+        }
+
+        /* --- VARIABLES --- */
+        :root {
+            --neon-lime: #ccff00;
+            --hot-pink: #ff0055;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1,
+        h2,
+        h3 {
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: 0.9;
+            font-weight: 800;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #aaa;
+            max-width: 600px;
+        }
+
+        .highlight {
+            color: var(--neon-lime);
+        }
+
+        .strike {
+            text-decoration: line-through;
+            color: #666;
+        }
+
+        /* --- UTILS --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--neon-lime);
+            color: var(--dark-bg);
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 6px 6px 0px var(--hot-pink);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--f0f0f0);
+            color: #f0f0f0;
+        }
+
+        /* --- HEADER --- */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--f0f0f0);
+        }
+
+        .logo span {
+            color: var(--neon-lime);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            background: var(--hot-pink);
+            color: white;
+            padding: 5px 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+            transform: rotate(-2deg);
+        }
+
+        /* --- TICKER (MARQUEE) --- */
+        .ticker-wrap {
+            position: absolute;
+            bottom: 10%;
+            left: -10%;
+            width: 120%;
+            overflow: hidden;
+            opacity: 0.1;
+            transform: rotate(-5deg);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .ticker {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 20s linear infinite;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0 2rem;
+            font-size: 8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            -webkit-text-stroke: 2px #fff;
+            color: transparent;
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(-50%, 0, 0);
+            }
+        }
+
+        /* --- COMPARISON SECTION --- */
+        .comparison {
+            padding: 100px 0;
+            background: var(--card-bg);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .card {
+            border: 1px solid #333;
+            padding: 40px;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .card.bad {
+            opacity: 0.6;
+        }
+
+        .card.good {
+            border: 2px solid var(--neon-lime);
+            background: #111;
+            transform: scale(1.02);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 20px 0;
+            display: block;
+        }
+
+        .features li {
+            list-style: none;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .features li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--neon-lime);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .card.good {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Snack<span>Xpress</span></div>
+                <div style="font-size: 0.9rem; font-weight: bold; color: var(--neon-lime);">BETA ACCESS</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <div class="ticker-item">RÁPIDO · SANO · SIMPLE · RÁPIDO · SANO · SIMPLE ·</div>
+            </div>
+        </div>
+        <div class="container hero-content">
+            <div class="badge">Solo para gente ocupada</div>
+            <h1>No tienes tiempo.<br>Quieres <span class="highlight">comer bien.</span></h1>
+            <p>Micro-clases de cocina para sobrevivir al mundo moderno sin morir de hambre (ni de aburrimiento). Recetas
+                listas en menos de 15 minutos.</p>
+            <br>
+            <a href="https://forms.google.com/TU_LINK_AQUI" class="btn" onclick="trackClick()">Empezar ahora —
+                $9/mes</a>
+            <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.7;">*Precio de lanzamiento. Cancela cuando
+                quieras.</p>
+        </div>
+    </section>
+
+    <!-- COMPARISON -->
+    <section class="comparison">
+        <div class="container">
+            <h2 style="margin-bottom: 50px; text-align: center;">La matemática es simple</h2>
+            <div class="grid-2">
+                <!-- BAD OPTION -->
+                <div class="card bad">
+                    <h3>Tu vida actual</h3>
+                    <span class="price strike">$150<span style="font-size: 1rem;">/mes</span></span>
+                    <p>En delivery grasoso, snacks ultraprocesados y comida que te da sueño.</p>
+                    <ul class="features" style="margin-top: 20px; opacity: 0.7;">
+                        <li>Gastas mucho dinero</li>
+                        <li>Ingredientes dudosos</li>
+                        <li>Te sientes pesado</li>
+                    </ul>
+                </div>
+
+                <!-- GOOD OPTION -->
+                <div class="card good">
+                    <div
+                        style="position: absolute; top: -15px; right: 20px; background: var(--neon-lime); color: black; padding: 5px 10px; font-weight: bold; font-size: 0.8rem;">
+                        RECOMENDADO</div>
+                    <h3>SnackXpress</h3>
+                    <span class="price highlight">$9<span style="font-size: 1rem;">/mes</span></span>
+                    <p>Acceso total a la biblioteca de micro-clases saludables.</p>
+                    <ul class="features" style="margin-top: 20px;">
+                        <li>Más barato que un solo delivery</li>
+                        <li>Recetas en video de 3 minutos</li>
+                        <li>Ingredientes que ya tienes</li>
+                        <li>Resultados reales</li>
+                    </ul>
+                    <a href="https://forms.google.com/TU_LINK_AQUI"
+                        style="color: var(--neon-lime); font-weight: bold; text-decoration: underline; margin-top: 20px; display: block;">Lo
+                        quiero probar &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 SnackXpress - Proyecto FoodLab Latam.</p>
+            <p style="font-size: 0.7rem; margin-top: 10px;">Validación de Producto Mínimo Viable. No se cobrará nada
+                real... todavía.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to track clicks (simulated)
+        function trackClick() {
+            console.log("Usuario interesado en pagar $9. ¡Conversión Potencial!");
+            // Aquí podrías agregar Google Analytics o Pixel de Facebook
+            // window.location.href = "TU_URL_DEL_FORMULARIO";
+        }
+
+        // Efecto suave de aparición al scrollear
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.card').forEach((el) => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>
